@@ -45,7 +45,7 @@ local CUBE_TRIANGLES = {
     {7,8,4},
     {7,4,3},
 }
-local SYMBOLS = ".#@£$%!§?]|<"
+local SYMBOLS = "............"
 --//Variables//--
 local screen = {}
 local rotationX,rotationY,rotationZ = 0,0,0
@@ -152,7 +152,29 @@ local function rotateAroundY(v1,angle)
         v1.x*-math.sin(angle) + math.cos(angle)*v1.z
     )
 end
----@param rx number
+
+---@param v1 Vector3
+---@param angle number
+---@return Vector3
+local function rotateAroundX(v1,angle)
+    return vector3.new(
+        v1.x,
+        v1.y*math.cos(angle) + -math.sin(angle)*v1.z,
+        v1.y*math.sin(angle) + math.cos(angle)*v1.z
+    )
+end
+
+---@param v1 Vector3
+---@param angle number
+---@return Vector3
+local function rotateAroundZ(v1,angle)
+    return vector3.new(
+        v1.y*-math.sin(angle) + math.cos(angle)*v1.x,
+        v1.y*math.cos(angle) + math.sin(angle)*v1.x,
+        v1.z
+    )
+end
+---@param rx number  
 ---@param ry number
 ---@param rz number
 local function drawCube(rx,ry,rz)
@@ -162,6 +184,8 @@ local function drawCube(rx,ry,rz)
         for i = 1,3 do
             transformedVertices[i] = CUBE_VERTICES[triangle[i]]:clone()
             transformedVertices[i] = rotateAroundY(transformedVertices[i],ry)
+            transformedVertices[i] = rotateAroundX(transformedVertices[i],rx)
+            transformedVertices[i] = rotateAroundZ(transformedVertices[i],rz)
             local cubeVertice = vector3.new(transformedVertices[i].x,transformedVertices[i].y,transformedVertices[i].z)
             local xValue = cubeVertice.x
             local yValue = cubeVertice.y
@@ -184,7 +208,7 @@ local function drawCube(rx,ry,rz)
             projectedPoints[i] = projectToCenter2D(transformedVertices[i])
         end
         --SYMBOLS:sub(triangleIndex,triangleIndex)
-        drawTriangle(projectedPoints[1],projectedPoints[2],projectedPoints[3],'*')
+        drawTriangle(projectedPoints[1],projectedPoints[2],projectedPoints[3],SYMBOLS:sub(triangleIndex,triangleIndex))
         --back face culling
     end
 end
@@ -236,7 +260,9 @@ while true do
         drawFlatBottom(vector2.new(60,10),vector2.new(60,20),vector2.new(90,20))
     drawFlatTop(vector2.new(90,20),vector2.new(90,10),vector2.new(60,10))
     ]]
-    drawCube(0,rotationY,0)
+    drawCube(rotationX,rotationY,rotationZ)
+    rotationX = (rotationX + math.rad(0.1)) % (2*math.pi)
     rotationY = (rotationY + math.rad(0.1)) % (2*math.pi)
+    rotationZ = (rotationZ + math.rad(0.1)) % (2*math.pi)
     displayScreen()
 end
