@@ -12,7 +12,7 @@ Follow these steps to run the 3D cube project on your machine:
 
 1. **Clone the repository** (or download the source code):
    ```bash
-   git clone https://github.com
+   git clone https://github.com/Sougar-LDT/Cube-3D
    ```
 
 2. **Open your terminal** (Command Prompt or PowerShell).
