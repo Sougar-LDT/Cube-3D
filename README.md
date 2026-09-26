@@ -24,5 +24,5 @@ Follow these steps to run the 3D cube project on your machine:
 
 4. **Execute the project** by running the local Lua binary with the main entry point:
    ```powershell
-   .\lua55.exe main.lua
+   lua55.exe main.lua
    ```
