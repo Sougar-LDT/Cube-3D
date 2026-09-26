@@ -1,5 +1,9 @@
 local vector2 = {}
 vector2.__index = vector2
+---@param self Vector2
+vector2.__tostring = function(self)
+    return ("x : %f, y : %f"):format(self.x,self.y)
+end
 --//Types//--
 ---@class Vector2
 ---@field x number
