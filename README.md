@@ -3,7 +3,7 @@
 
 ## Features
 * **Pure Lua Implementation**: Uses modular architecture across multiple files.
-* **3D Mathematics**: Includes custom matrix transformations and projections.
+* **3D Mathematics**: Includes matrix transformations and projections.
 * **Zero Dependencies**: Runs instantly using the included local Lua binary.
 
 ## How to Run the Project
